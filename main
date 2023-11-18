@@ -1,0 +1,105 @@
+import tkinter as tk
+
+class FormulasApp(tk.Tk):
+
+    def __init__(self):
+        super().__init__()
+
+        self.title("Fórmulas de Física para Manutenção")
+        self.geometry("800x600")
+
+        # Create the main frame
+        self.main_frame = tk.Frame(self)
+        self.main_frame.pack(fill="both", expand=True)
+
+        # Create the categories frame
+        self.categories_frame = tk.Frame(self.main_frame)
+        self.categories_frame.pack(side="top", fill="x")
+
+        # Create the categories listbox
+        self.categories_listbox = tk.Listbox(self.categories_frame)
+        self.categories_listbox.pack(fill="x")
+
+        # Add the categories to the listbox
+        for category in ["Bombas e motores", "Motores", "Cilindros hidráulicos", "Motores de roda hidráulica", "Circuitos elétricos", "Termodinâmica", "Capacitores", "Potência"]:
+            self.categories_listbox.insert("end", category)
+
+        # Create the formulas frame
+        self.formulas_frame = tk.Frame(self.main_frame)
+        self.formulas_frame.pack(side="top", fill="both", expand=True)
+
+        # Create the formulas label
+        self.formulas_label = tk.Label(self.formulas_frame, text="Fórmulas")
+        self.formulas_label.pack(side="top")
+
+        # Create the formulas text widget
+        self.formulas_text = tk.Text(self.formulas_frame)
+        self.formulas_text.pack(fill="both", expand=True)
+
+        # Bind the select event to the formulas listbox
+        self.categories_listbox.bind("<<ListboxSelect>>", self.on_category_selected)
+
+    def on_category_selected(self, event):
+        # Get the selected category
+        selected_category = self.categories_listbox.get("active")
+
+        # Clear the formulas text widget
+        self.formulas_text.delete("1.0", "end")
+
+        # Load the formulas for the selected category
+        if selected_category == "Bombas e motores":
+            formulas = [
+                "Vácuo = P2 - P1 (Exemplo: Se P1=10 e P2=20, então Vácuo = 20 - 10 = 10)",
+                "Vazão = Q = V.A (Exemplo: Se V=10 e A=2, então Vazão = 10 * 2 = 20)",
+                "Potência = P = Q.H (Exemplo: Se Q=10 e H=2, então Potência = 10 * 2 = 20)",
+                "Torque = T = P / n (Exemplo: Se P=10 e n=2, então Torque = 10 / 2 = 5)",
+            ]
+        elif selected_category == "Motores":
+            formulas = [
+                "Potência = P = T.n (Exemplo: Se T=10 e n=2, então Potência = 10 * 2 = 20)",
+                "Torque = T = F.r (Exemplo: Se F=10 e r=2, então Torque = 10 * 2 = 20)",
+                "Velocidade = n = 60.f / (2.π.r) (Exemplo: Se f=10 e r=2, então Velocidade = 60 * 10 / (2 * 3.14 * 2) = 477)",
+                "Combustível = C = P / η (Exemplo: Se P=10 e η=2, então Combustível = 10 / 2 = 5)",
+            ]
+        elif selected_category == "Cilindros hidráulicos":
+            formulas = [
+                "Força = F = p.A (Exemplo: Se p=10 e A=2, então Força = 10 * 2 = 20)",
+                "Velocidade = v = d / t (Exemplo: Se d=10 e t=2, então Velocidade = 10 / 2 = 5)",
+                "Deslocamento = s = v.t (Exemplo: Se v=10 e t=2, então Deslocamento = 10 * 2 = 20)",
+            ]
+        elif selected_category == "Motores de roda hidráulica":
+            formulas = [
+                "Velocidade = v = 2.g.h / (n.π.r) (Exemplo: Se g=10, h=2, n=2 e r=2, então Velocidade = 2 * 10 * 2 / (2 * 3.14 * 2) = 10)",
+                "Força = F = p.A (Exemplo: Se p=10 e A=2, então Força = 10 * 2 = 20)",
+                "Potência = P = v.F (Exemplo: Se v=10 e F=2, então Potência = 10 * 2 = 20)",
+            ]
+        elif selected_category == "Circuitos elétricos":
+            formulas = [
+                "Corrente = I = V / R (Exemplo: Se V=10 e R=2, então Corrente = 10 / 2 = 5)",
+                "Tensão = V = I.R (Exemplo: Se I=10 e R=2, então Tensão = 10 * 2 = 20)",
+                "Potência = P = V.I (Exemplo: Se V=10 e I=2, então Potência = 10 * 2 = 20)",
+            ]
+        elif selected_category == "Termodinâmica":
+            formulas = [
+                "Temperatura = Energia / (Constante * log(W)) (Exemplo: Se Energia=10, Constante=2 e W=2, então Temperatura = 10 / (2 * log(2)) = 7.2)",
+                # Adicione mais fórmulas de termodinâmica aqui
+            ]
+        elif selected_category == "Capacitores":
+            formulas = [
+                "Capacitância = C = Q / V (Exemplo: Se Q=10 e V=2, então Capacitância = 10 / 2 = 5)",
+                # Adicione mais fórmulas de capacitores aqui
+            ]
+        elif selected_category == "Potência":
+            formulas = [
+                "Potência = P = V.I (Exemplo: Se V=10 e I=2, então Potência = 10 * 2 = 20)",
+                # Adicione mais fórmulas de potência aqui
+            ]
+
+        # Add the formulas to the formulas text widget
+        for formula in formulas:
+            self.formulas_text.insert("end", formula + "\n")
+
+if __name__ == "__main__":
+    app = FormulasApp()
+    app.mainloop()
+
